@@ -24,10 +24,10 @@ function getHeightEvaluator(marginTop, marginBottom, scale) {
                 // change position to ignore margin collapse
                 const position = element.style.position;
                 element.style.position = "absolute";
-                const height = Math.ceil(element.offsetHeight + margin);
+                const height = element.offsetHeight + margin;
                 // reset element position
                 element.style.position = position;
-                return height;
+                return Math.ceil(height * scale);
             }
             return 0;
         };
@@ -45,8 +45,8 @@ function getHeightEvaluator(marginTop, marginBottom, scale) {
         if (footer) {
             styleSheet.insertRule(`#footer { margin-bottom: ${marginBottom}`);
         }
-        const headerHeight = getHeight(header) * scale;
-        const footerHeight = getHeight(footer) * scale;
+        const headerHeight = getHeight(header);
+        const footerHeight = getHeight(footer);
         return { headerHeight, footerHeight };
     };
     return [pageFunc, argument];
